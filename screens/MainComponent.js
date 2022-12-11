@@ -1,80 +1,97 @@
-import { Platform, View } from 'react-native';
-import Constants from 'expo-constants';
-import CampsiteInfoScreen from './CampsiteInfoScreen';
-import DirectoryScreen from './DirectoryScreen';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import HomeScreen from './HomeScreen';
+import * as React from "react";
+import {Platform, View} from "react-native";
+import Constants from "expo-constants";
+import DirectoryScreen from "./DirectoryScreen";
+import CampsiteInfoScreen from "./CampsiteInfoScreen";
+import {createStackNavigator} from "@react-navigation/stack";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import HomeScreen from "./HomeScreen";
+import AboutScreen from "./AboutScreen";
+import ContactScreen from "./ContactScreen";
 
 const Drawer = createDrawerNavigator();
-
 const screenOptions = {
     headerTintColor: '#fff',
-    headerStyle: { backgroundColor: '#5637DD' }
+    headerStyle: {backgroundColor: '#5637DD'}
 };
-
 const HomeNavigator = () => {
     const Stack = createStackNavigator();
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Home'
-                component={HomeScreen}
-                options={{ title: 'Home' }}
-            />
+            <Stack.Screen name="home"
+                          component={HomeScreen}
+                          options={{title: 'Home'}}/>
         </Stack.Navigator>
     );
 };
-
+const AboutNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name="About"
+                          component={AboutScreen}/>
+        </Stack.Navigator>
+    );
+};
+const ContactNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name="Contact"
+                          component={ContactScreen}
+                          options={{title: "Contact Us"}}/>
+        </Stack.Navigator>
+    );
+};
 const DirectoryNavigator = () => {
     const Stack = createStackNavigator();
     return (
         <Stack.Navigator
-            initialRouteName='Directory'
-            screenOptions={screenOptions}
-        >
+            initialRouteName="Directory"
+            screenOptions={screenOptions}>
             <Stack.Screen
-                name='Directory'
+                name="Directory"
                 component={DirectoryScreen}
-                options={{ title: 'Campsite Directory' }}
+                options={{title: 'Campsite Directory'}}
             />
             <Stack.Screen
-                name='CampsiteInfo'
+                name="CampsiteInfo"
                 component={CampsiteInfoScreen}
-                options={({ route }) => ({
+                options={({route}) => ({
                     title: route.params.campsite.name
                 })}
             />
         </Stack.Navigator>
     );
 };
-
 const Main = () => {
     return (
-        <View
-            style={{
-                flex: 1,
-                paddingTop:
-                    Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-            }}
-        >
+        <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight}}>
             <Drawer.Navigator
-                initialRouteName='Home'
-                drawerStyle={{ backgroundColor: '#CEC8FF' }}
+                initialRouteName="Home"
+                drawerStyle={{backgroundColor: '#CEC8ff'}}
             >
                 <Drawer.Screen
-                    name='Home'
+                    name="Home"
                     component={HomeNavigator}
-                    options={{ title: 'Home' }}
+                    options={{title: 'Home'}}
                 />
                 <Drawer.Screen
-                    name='Directory'
+                    name="Directory"
                     component={DirectoryNavigator}
-                    options={{ title: 'Directory' }}
+                    options={{title: 'Directory'}}
+                />
+                <Drawer.Screen
+                    name="About"
+                    component={AboutNavigator}
+                />
+                <Drawer.Screen
+                    name="Contact"
+                    component={ContactNavigator}
+                    options={{title: 'Contact Us'}}
                 />
             </Drawer.Navigator>
         </View>
     );
 };
-
 export default Main;
