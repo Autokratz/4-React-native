@@ -5,8 +5,6 @@ import DirectoryScreen from './DirectoryScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from './HomeScreen';
-import About from "./AboutScreen";
-import Contact from "./ContactScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -47,50 +45,10 @@ const DirectoryNavigator = () => {
                     title: route.params.campsite.name
                 })}
             />
-            <Stack.Screen
-            name='About'
-            component={AboutScreen}
-            options={({ route}) => ({
-                title: route.params.campsite.name
-            })}
-            />
         </Stack.Navigator>
     );
 };
 
-const AboutNavigator = createStackNavigator(
-  {
-    Home: { screen: About },
-  },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: "#5637DD",
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        color: "#fff",
-      },
-    },
-  }
-);
-
-const ContactNavigator = createStackNavigator(
-    {
-      Home: { screen: Contact },
-    },
-    {
-      defaultNavigationOptions: {
-        headerStyle: {
-          backgroundColor: "#5637DD",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          color: "#fff",
-        },
-      },
-    }
-  );
 const Main = () => {
     return (
         <View
@@ -113,11 +71,6 @@ const Main = () => {
                     name='Directory'
                     component={DirectoryNavigator}
                     options={{ title: 'Directory' }}
-                />
-                <Drawer.Screen
-                name='About'
-                component={AboutNavigator}
-                options={{title: 'About'}}
                 />
             </Drawer.Navigator>
         </View>
